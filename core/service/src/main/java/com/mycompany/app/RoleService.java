@@ -34,19 +34,23 @@ public class RoleService
             Scanner scanner = new Scanner(System.in);
             int roleId = scanner.nextInt();
 
-            System.out.println("Enter new role name: ");
-            Scanner scan =  new Scanner(System.in);
-            String roleName = scan.nextLine();
-
-            
-
             Role role = roleDao.session.get(Role.class, roleId);
+
             if(role == null){
                 System.out.println("Role id does not exist.");
             }else{
-                role.setRoleName(roleName);
-                roleDao.updateRole(role);
-                System.out.println("Role " + roleId + " has been updated!");
+
+                 System.out.println("Enter new role name: ");
+                Scanner scan =  new Scanner(System.in);
+                String roleName = scan.nextLine();
+                if(roleName == ""){
+                    role.setRoleName(role.getRoleName());
+                } else{
+                    role.setRoleName(roleName);
+                    roleDao.updateRole(role);
+                    System.out.println("Role " + roleId + " has been updated!");
+                }
+               
             } 
         }
     }
@@ -61,7 +65,6 @@ public class RoleService
             Scanner scanner = new Scanner(System.in);
             int roleId = scanner.nextInt();
 
-            
             Role role = roleDao.session.get(Role.class, roleId);
             if(role == null){
                 System.out.println("Role id does not exist.");
